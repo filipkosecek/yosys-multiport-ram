@@ -11,7 +11,7 @@ module ram (
 	output reg [WORD_SIZE - 1:0] rdata1, rdata2
 );
 
-localparam RAM_SIZE = 32;
+localparam RAM_SIZE = 256;
 localparam WORD_SIZE = 8;
 
 (* no_rw_check *)
