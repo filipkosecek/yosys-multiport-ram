@@ -1,6 +1,4 @@
-/*
- * 8-read-port RAM
- */
+// 8-read-port RAM
 
 module ram (
 	input clk,

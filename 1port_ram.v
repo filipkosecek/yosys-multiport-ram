@@ -1,6 +1,4 @@
-/*
- * single-port RAM
- */
+// single-port RAM
 
 module ram (
 	input clk,

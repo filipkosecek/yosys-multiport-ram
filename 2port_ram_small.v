@@ -1,6 +1,4 @@
-/*
- * 2-read-port RAM
- */
+// 2-read-port RAM
 
 module ram (
 	input clk,
