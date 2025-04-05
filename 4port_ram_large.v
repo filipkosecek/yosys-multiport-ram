@@ -1,24 +1,25 @@
 /*
- * Dve citania a dva zapisy nezvladne, dve citania a jeden zapis uz ano
+ * 4-read-port RAM
  */
 
-module bram (
+module ram (
 	input clk,
 	input [4:0] addr1, addr2, addr3, addr4,
 	input wstrobe,
 	input rstrobe,
-	input [(REG_SIZE - 1):0] wdata1,
-	output reg [(REG_SIZE - 1):0] rdata1, rdata2, rdata3, rdata4
+	input [$clog2(RAM_SIZE) - 1:0] wdata,
+	output reg [WORD_SIZE - 1:0] rdata1, rdata2, rdata3, rdata4
 );
 
-localparam REG_SIZE = 32;
+localparam RAM_SIZE = 32;
+localparam WORD_SIZE = 8;
 
 (* no_rw_check *)
-reg [(REG_SIZE - 1):0] mem [31:0];
+reg [WORD_SIZE - 1:0] mem [RAM_SIZE - 1:0];
 
 always @ (posedge clk) begin
 	if (wstrobe)
-		mem[addr1] <= wdata1;
+		mem[addr1] <= wdata;
 	else if (rstrobe) begin
 		rdata1 <= mem[addr1];
 		rdata2 <= mem[addr2];
