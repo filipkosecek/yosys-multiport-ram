@@ -1,18 +1,24 @@
-## Yosys multi-port RAM tests
+# Yosys n-port RAM tests
 
-### Repository structure
-The repository contains multiple examples of RAM implementations varying in the RAM word size 
-and number of read ports. Each can be found in a separate file. There are no additional modules 
-as they are only inteded for testing and experiments. The file names follow pattern 
-`xport_ram[{_small,_large}][wordsize].v` with `x` denoting the number of read ports while small/
-large specifies the size of RAM. Optional parameter`wordsize` specifies the size of RAM word. 
-For example, the file of single port RAM with 32-bit word size is named `1port_ram32.v`.
+## Repository structure
+The repository contains a generic n-port RAM implementation used for testing
+the BRAM inference by Yosys. The design is parametrized as the the memory size
+and number of read ports determines how many BRAM blocks are used. There are
+three macros that are used to parametrize the design:
+- `RAM_SIZE` - the number of words in RAM
+- `WORD_SIZE` - the size of a word 
+- `N_PORTS` - the number of read ports
+There is a default value for each macro which can be overriden by user-defined
+values.
 
-### Synthesis
-Yosys tool is required for synthesis which can be obtained from [their repository] and built from
-source or it can also be found in package repositories of some distributions such as Debian. The 
-files can then be synthesized by running command:
+## Synthesis
+Yosys tool is required for synthesis which can be obtained from
+[its repository](https://github.com/YosysHQ/yosys) and built from source
+or it can also be found in package repositories of some distributions
+such as Debian. Yosys allows to define macros from the command line
+similarly to `gcc`. The usage is as follows:
 ```
-yosys -p synth_ice40 source_file.v
+yosys -DWORD_SIZE=x -DRAM_SIZE=y -DN_PORTS=z -p synth_ice40 nport_ram.v
 ```
-The output displays the amount and type of resources used.
+If none of the macros are supplied, the default values are used. Yosys should
+output the design's resource usage.
