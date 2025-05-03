@@ -32,9 +32,8 @@ always @ (posedge clk) begin
 	if (wstrobe)
 		mem[addr[ADDR_SIZE - 1:0]] <= wdata;
 	if (rstrobe) begin
-		for (i = 0; i < `N_PORTS; i = i + 1) begin
+		for (i = 0; i < `N_PORTS; i = i + 1)
 			rdata[i * `WORD_SIZE +: `WORD_SIZE] <= mem[addr[((i+1) * ADDR_SIZE):(i * ADDR_SIZE)]];
-		end
 	end
 end
 
